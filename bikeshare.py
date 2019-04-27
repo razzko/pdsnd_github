@@ -10,9 +10,9 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'washington': 'washington.csv' }
 
 def get_filters():
-    
+
     print('\nHello! Let\'s explore some US bikeshare data!')
-    # TO DO: get user input for city (chicago, new york city, washington). 
+    # TO DO: get user input for city (chicago, new york city, washington).
     while True:
         try:
             city = input('\nPlease type the desired city, \'Washington\', \'Chicago\' or \'New York City\' for relevant bikeshare information: ').lower()
@@ -23,7 +23,7 @@ def get_filters():
                 print("*** Invalid input! Please choose from the provided options.  ***")
         except (ValueError):
             print('\nThat\'s not a valid city! Please input one of the indicated cities!')
-        
+
     while True:
         try:
             option_filter = input('\nWoud you like to filter data by \'day\', \'month\' or \'all\': ').lower()
@@ -31,10 +31,10 @@ def get_filters():
             if option_filter in option_list:
                 break
             else:
-                print("*** Invalid input! Please choose from the provided options.  ***")           
+                print("*** Invalid input! Please choose from the provided options.  ***")
         except ValueError:
             print('\nThat\'s not a valid filter type! Please input either \'day\', \'month\', \'none\'')
-            
+
     # TO DO: get user input for month (all, january, february, ... , june)
     if option_filter == 'month':
          while True:
@@ -45,10 +45,10 @@ def get_filters():
                     day = 'all'
                     break
                 else:
-                    print("*** Invalid input! Please choose from the provided options.  ***")                    
+                    print("*** Invalid input! Please choose from the provided options.  ***")
             except ValueError:
-                print('\nThat\'s not a valid month! Please input either of the months indicated.')            
-    
+                print('\nThat\'s not a valid month! Please input either of the months indicated.')
+
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     elif option_filter == 'day':
         while True:
@@ -59,29 +59,29 @@ def get_filters():
                     month = 'all'
                     break
                 else:
-                    print("*** Invalid input! Please choose from the provided options.  ***")                    
+                    print("*** Invalid input! Please choose from the provided options.  ***")
             except ValueError:
                 print('\nThat\'s not a valid day of the week! Please input either of the days indicated.')
     else:
         month = 'all'
         day = 'all'
-    
+
     print('-'*60)
     return city, month, day, option_filter
 
 
 def load_data(city, month, day):
-        
+
     # load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
-    
+
     # Convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
     # Extract month and day of week from Start Time to create new columns called month and day_of_week
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-        
+
     # filter by month if applicable
     if month != 'all':
         # use the index of the months list to get the corresponding int
@@ -94,7 +94,7 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
-   
+
     return df
 
 
@@ -188,7 +188,7 @@ def user_stats(df, city):
     if 'Birth Year' in df.columns:
         earliest_birth_year = df['Birth Year'].min()
         print('\nEarliest birth year:\n',earliest_birth_year)
-    
+
         recent_birth_year = df['Birth Year'].max()
         print('\nMost recent birth year:\n',recent_birth_year)
 
@@ -196,7 +196,7 @@ def user_stats(df, city):
         print('\nMost common birth year:\n',most_common_birth_year)
     else:
         print('*** Your selection of, \'' + city.upper() + '\' city, does not contain birth year information! ***\n')
-        
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*60)
 
@@ -223,8 +223,8 @@ def df_stats(df, city, option_filter):
                 print("*** Invalid input! Please choose from the provided options. ***")
         except (ValueError):
             print('\nThat\'s not a valid option!')
-        
-    
+
+
 def main():
     while True:
         city, month, day, option_filter = get_filters()
@@ -238,7 +238,7 @@ def main():
 
         restart = input('\nWould you like to restart? \nType \'Yes\' or \'No\': ')
         if restart.lower() != 'yes':
-            print('\n*** Good-bye! Thank\'s for exploring US bikeshare data! ***\n')
+            print('\n*** Good-bye! Thank\'s for exploring US bikeshare data! :) ***\n')
             break
 
 
