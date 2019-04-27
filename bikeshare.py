@@ -238,7 +238,7 @@ def main():
 
         restart = input('\nWould you like to restart? \nType \'Yes\' or \'No\': ')
         if restart.lower() != 'yes':
-            print('\n*** Good-bye! Thank\'s for exploring US bikeshare data! ***\n')
+            print('\n*** Good-bye! Thanks for exploring US bikeshare data! ***\n')
             break
 
 
